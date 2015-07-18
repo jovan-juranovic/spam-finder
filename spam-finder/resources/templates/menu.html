@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+	<div class="navbar-header">
+	  <a class="navbar-brand" href="{{servlet-context}}/">Spam Finder</a>
+	</div>
+	<div class="navbar-collapse collapse ">
+	  <ul class="nav navbar-nav">
+		<li {% ifequal page "home.html" %} class="active"{%endifequal%}>
+		  <a href="{{servlet-context}}/">Home</a>
+		</li>
+		<li {% ifequal page "about.html" %} class="active"{%endifequal%}>
+		  <a href="{{servlet-context}}/analyze">Editor</a>
+		</li>
+	  </ul>
+	</div>
+  </div>
+</div>
+{% endblock %}

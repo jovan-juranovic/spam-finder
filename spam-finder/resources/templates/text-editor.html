@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+	<div class="col-md-6">
+	  <label class="checkbox-inline">
+		<input id="check-spam" type="checkbox" value="spam" data-bind="checked: trainSpam">Mark this message as spam
+	  </label>
+	  <label class="checkbox-inline">
+		<input id="check-ham" type="checkbox" value="ham" data-bind="checked: trainHam">Mark this message as ham
+	  </label>
+	<button class="btn btn-primary" data-bind="click: train">Train me</button>
+	<span id="train-message"></span>
+	<div class="form-group">
+		<label for="message">Input:</label>
+		<textarea id="text" class="form-control" name="text" rows="20" cols="80" placeholder="Enter some text here..." data-bind="value: text"></textarea>
+	</div>
+	<p>
+		<button id="btn-classify" class="btn btn-primary" data-bind="click: classify">Classify</button>
+		<span>Result: <span class="bg-info" data-bind="text: probability"></span></span>
+	</p>
+	</div>
+	<div class="col-md-6">
+		<div data-bind="if: isLoaded">
+			<table class="table table-bordered table-hover table-condensed">
+				<thead>
+					<th>Word</th>
+					<th>Frequency</th>
+				</thead>
+				<tbody data-bind="foreach: frequencies">
+					<tr>
+						<td data-bind="text: word"></td>
+						<td data-bind="text: frequency"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block page-styles %}
+{% style "/lib/toastr/css/toastr.min.css" %}
+{% endblock %}
+
+{% block page-scripts %}
+{% script "/lib/toastr/js/toastr.min.js" %}
+{% script "/lib/knockoutjs/knockout-3.3.0.js" %}
+{% script "/js/serverProxy.js" %}
+{% script "/js/utility.js" %}
+{% script "/js/editorVM.js" %}
+{% endblock %}

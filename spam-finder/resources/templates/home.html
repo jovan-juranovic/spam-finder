@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="jumbotron">
+    <h1>Welcome to Spam Finder</h1>
+    <p>Find out if your e-mail is spam or not!</p>
+    <p><a class="btn btn-primary btn-lg" href="{{servlet-context}}/editor">Try it now &raquo;</a></p>
+  </div>
+
+  <div class="row">
+    <div class="span12">
+    {{docs|markdown}}
+    </div>
+  </div>
+{% endblock %}

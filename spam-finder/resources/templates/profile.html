@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+	<div class="col-md-6" data-bind="with: user">
+		<form role="form" data-bind="submit: editUser">
+			<div class="form-group">
+				<label for="uid">Username:</label>
+				<input id="uid" type="input" class="form-control" name="uid" placeholder="Username" data-bind="value: username" readonly />
+			</div>
+			<div class="form-group">
+				<label for="first-name">First name:</label>
+				<input id="first-name" type="input" class="form-control" name="first-name" placeholder="First name" data-bind="value: firstName">
+				<p class="text-danger" data-bind="validationMessage: firstName"></p>
+			</div>
+			<div class="form-group">
+				<label for="last-name">Last name:</label>
+				<input id="last-name" type="input" class="form-control" name="last-name" placeholder="Last name" data-bind="value: lastName">
+				<p class="text-danger" data-bind="validationMessage: lastName"></p>
+			</div>
+			<div class="form-group">
+				<label for="email">Email address:</label>
+				<input id="email" type="email" class="form-control" name="email" placeholder="E-mail" data-bind="value: email">
+				<p class="text-danger" data-bind="validationMessage: email"></p>
+			</div>
+			<button type="submit" class="btn btn-primary">Save</button>
+		</form>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block page-styles %}
+{% style "/lib/toastr/css/toastr.min.css" %}
+{% endblock %}
+
+{% block page-scripts %}
+{% script "/lib/toastr/js/toastr.min.js" %}
+{% script "/lib/knockoutjs/knockout-3.3.0.js" %}
+{% script "/lib/knockoutjs/knockout.validation.min.js" %}
+{% script "/js/serverProxy.js" %}
+{% script "/js/utility.js" %}
+{% script "/js/userVM.js" %}
+{% endblock %}

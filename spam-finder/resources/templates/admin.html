@@ -1,0 +1,113 @@
+{% extends "base-admin.html" %}
+{% block content %}
+<style type="text/css">
+	tbody tr:hover {
+		cursor: pointer;
+		background-color: #68c !important;
+		color: White;
+	}
+</style>
+<div class="row">
+	<div class="col-md-6" data-bind="ifnot: toCreate">
+	<p><button type="button" class="btn btn-success btn-sm" data-bind="click: goToCreateUser">Create New User</button></p>
+		<div class="table-responsive">
+			<table class="table table-bordered table-condensed">
+				<thead>
+					<th>Username</th>
+					<th>First name</th>
+					<th>Last name</th>
+					<th>E-mail</th>
+				</thead>
+				<tbody data-bind="foreach: users">
+					<tr data-bind="click: goToUser">
+						<td data-bind="text: username"></td>
+						<td data-bind="text: firstName"></td>
+						<td data-bind="text: lastName"></td>
+						<td data-bind="text: email"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="col-md-6" data-bind="with: user">
+		<div data-bind="ifnot: toCreate">
+			<div class="form-group">
+				<label for="uid">Username:</label>
+				<input id="uid" type="input" class="form-control" name="uid" placeholder="Username" data-bind="value: username" readonly>
+			</div>
+			<div class="form-group">
+				<label for="first-name">First name:</label>
+				<input id="first-name" type="input" class="form-control" name="first-name" placeholder="First name" data-bind="value: firstName">
+			</div>
+			<div class="form-group">
+				<label for="last-name">Last name:</label>
+				<input id="last-name" type="input" class="form-control" name="last-name" placeholder="Last name" data-bind="value: lastName">
+			</div>
+			<div class="form-group">
+				<label for="email">Email address:</label>
+				<input id="email" type="email" class="form-control" name="email" placeholder="E-mail" data-bind="value: email">
+			</div>
+			<p>
+			  <button type="button" class="btn btn-primary btn-sm" data-bind="click: editUser">Edit User</button>
+			  <button type="button" class="btn btn-danger btn-sm" data-bind="click: removeUser">Delete User</button>
+			</p>
+		</div>
+	</div>
+	<div class="col-md-6" data-bind="if: toCreate">
+		<form role="form" data-bind="submit: userVm().createUser">
+			<div class="form-group">
+				<label for="uid">Username:</label>
+				<input id="uid" type="input" class="form-control" name="uid" placeholder="Username" data-bind="value: userVm().username" />
+				<p class="text-danger" data-bind="validationMessage: userVm().username"></p>
+			</div>
+			<div class="form-group">
+				<label for="first-name">First name:</label>
+				<input id="first-name" type="input" class="form-control" name="first-name" placeholder="First name" data-bind="value: userVm().firstName">
+				<p class="text-danger" data-bind="validationMessage: userVm().firstName"></p>
+			</div>
+			<div class="form-group">
+				<label for="last-name">Last name:</label>
+				<input id="last-name" type="input" class="form-control" name="last-name" placeholder="Last name" data-bind="value: userVm().lastName">
+				<p class="text-danger" data-bind="validationMessage: userVm().lastName"></p>
+			</div>
+			<div class="form-group">
+				<label for="email">Email address:</label>
+				<input id="email" type="email" class="form-control" name="email" placeholder="E-mail" data-bind="value: userVm().email">
+				<p class="text-danger" data-bind="validationMessage: userVm().email"></p>
+			</div>
+			<div class="form-group">
+				<label for="pass">Password:</label>
+				<input id="pass" type="password" class="form-control" name="pass" placeholder="Password" data-bind="value: userVm().password">
+				<p class="text-danger" data-bind="validationMessage: userVm().password"></p>
+			</div>
+			<div class="form-group">
+				<label for="pass1">Retype password:</label>
+				<input id= "pass1" type="password" class="form-control" name="pass1" placeholder="Retype password" data-bind="value: userVm().confirmPassword">
+				<p class="text-danger" data-bind="validationMessage: userVm().confirmPassword"></p>
+			</div>
+			<div class="form-group">
+			  <div class="checkbox">
+				<label>
+				  <input type="checkbox" name="is-admin" data-bind="checked: userVm().isAdmin"> Is administrator
+				</label>
+			  </div>
+			</div>
+			<button type="submit" class="btn btn-primary">Create</button>
+			<button type="button" class="btn btn-default" data-bind="click: goToUsers">Back to users</button>
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block page-styles %}
+{% style "/lib/toastr/css/toastr.min.css" %}
+{% endblock %}
+
+{% block page-scripts %}
+{% script "/lib/toastr/js/toastr.min.js" %}
+{% script "/lib/knockoutjs/knockout-3.3.0.js" %}
+{% script "/lib/knockoutjs/knockout.validation.min.js" %}
+{% script "/js/serverProxy.js" %}
+{% script "/js/utility.js" %}
+{% script "/js/adminVM.js" %}
+{% endblock %}
