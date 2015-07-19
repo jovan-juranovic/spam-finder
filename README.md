@@ -1,10 +1,15 @@
 # Spam classifier application created in Clojure.
 
+Admin user => username: admin, password: admin
+Regular user => username: user, password: password
+
   When the application is started, a user has to register or login. Initialy, two users, admin, with username: admin, and password: admin and regular user with username: user, and password: password are inserted in database, so you can log in with these credentials. After successful registration, Home page is shown, and you can test classifier by typing some message in input text area.
   
   If you log in with admin credentials, you'll be redirected ti administration page, that serves for managing users (CRUD operations). If you log in with user credentials you'll be redirected to editor page, where you can test spam classifier.
   
   When you type some input in text area, algorithm classifies input as one of the three categories: spam, ham or unsure with appropriate probability. If you want to classify input as spam or ham, just type message in text area, check appropriate option on top of the form and click train me. Next time when you want to classify that same message, algorithm will be closer to the right answer.
+  
+  In the top right corner, user can click on his username, and he'll be redirected on user profile page, where he can change his profile information.
   
   When you classify your input, on the right side of the screen there will be shown word frequencies counter, I've implemented this small module to explore and play with Clojure document filtering features. Word counter skips common words in English language, aka 'Stop words', and this file can be found in the corpus folder along with the training data.
   
