@@ -12,15 +12,15 @@ Regular user => username: user, password: password
   
   In the top right corner, user can click on his username, and he'll be redirected on user profile page, where he can change his profile information.
   
-  When you classify your input, on the right side of the screen there will be shown word frequencies counter, I've implemented this small module to explore and play with Clojure document filtering features. Word counter skips common words in English language, aka 'Stop words', and this file can be found in the corpus folder along with the training data.
+  When you classify your input, on the right side of the screen there will be shown word frequencies counter, I've implemented this small module to explore and play with Clojure document filtering features. Word counter skips common words in English language, aka **'Stop words'**, and this file can be found in the corpus folder along with the training data.
   
   For training datasets I've used large amount of data to effectively train a classifier with the English language (/corpus/spam/ and /corpus/ham/). Sample data for spam classification can be found easily on the Web. For this implementation, I've used data from the [Apache SpamAssassin](http://spamassassin.apache.org/publiccorpus/) project. Each word has an associated probability of occurrence in e-mails, which can be calculated from the number of times it's found in spam and ham e-mails and the total number of e-mails processed by the classifier. A new e-mail would be classified by finding all known words in the e-mail's header and body and then somehow combining the probabilities of occurrences of these words in spam and ham e-mails.
   
-  I've used a Bayesian probability function to model the occurrence of a particular word. In order to classify a new e-mail, I've also combined the probabilities of occurrences of all the known words found in it. For this implementation, I've used Fisher's method, or Fisher's combined probability test, to combine the calculated probabilities. I've also implemented a cross-validation diagnostic, which serves as a kind of unit test for classifier.
+  I've used a **Bayesian probability function** to model the occurrence of a particular word. In order to classify a new e-mail, I've also combined the probabilities of occurrences of all the known words found in it. For this implementation, I've used **Fisher's method**, or Fisher's combined probability test, to combine the calculated probabilities. I've also implemented a **cross-validation diagnostic**, which serves as a kind of unit test for classifier.
   
   An e-mail is classified as spam only when most of the words in the e-mail have been previously found in spam e-mails. Similarly, a large number of ham keywords would indicate the e-mail is in fact a ham e-mail. On the other hand, a low number of occurrences of spam keywords in an e-mail would have a probability closer to 0.5, in which case the classifier will be unsure of whether the e-mail is spam or ham.
   
-  Most of the client side scripting was done in [Knockout JS](http://knockoutjs.com/). Knockout is JavaScript library that makes complex things simple with features like declarative bindings, automatic UI refresh, dependancy tracking and templating. In combination with Selmer, client side development was easy and fun. All client side scripts can be found in /resources/public/js/ folder.
+  Most of the client side scripting was done in [Knockout JS](http://knockoutjs.com/). Knockout is JavaScript library that makes complex things simple with features like declarative bindings, automatic UI refresh, dependancy tracking and templating. In combination with Selmer, client side development was easy and fun. All client side scripts can be found in **/resources/public/js/** folder.
 
 ## Instaling instructions
   Running this application is fairly simple. First you'll need to download it, in either way by cloning this repo to desktop or by downloading zip file. Read this instruction until the end, to find the most convinient way for you to run this application.
@@ -29,7 +29,7 @@ Regular user => username: user, password: password
 
   After that, you'll need to download and install [Leiningen](http://leiningen.org). Leiningen presents dependency management tool for configuration of projects written in the Clojure. It enables its user to create, bulid, test and deploy projects. If your machine is running on Microsoft Windows, than you can handy get win instaler, which will do all dirty work with PATH variable and similar stuff for you. After you have installed Leiningen open the command prompt, navigate to project folder and type lein run.
 
-Navigate to the application folder and type in the terminan 'lein run' to start application. When you see result of the training on datasets in console, application will be started.
+Navigate to the application folder and type in the terminal **lein run** to start application. When you see result of the training on datasets in console, application will be started.
 
 ## Libraries used
 
