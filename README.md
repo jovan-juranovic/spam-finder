@@ -1,6 +1,7 @@
 # Spam classifier application created in Clojure.
 
-Admin user => username: admin, password: admin\n
+Admin user => username: admin, password: admin
+
 Regular user => username: user, password: password
 
   When the application is started, a user has to register or login. Initialy, two users, admin, with username: admin, and password: admin and regular user with username: user, and password: password are inserted in database, so you can log in with these credentials. After successful registration, Home page is shown, and you can test classifier by typing some message in input text area.
