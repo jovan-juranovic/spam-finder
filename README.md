@@ -4,9 +4,15 @@
   
   If you log in with admin credentials, you'll be redirected ti administration page, that serves for managing users (CRUD operations). If you log in with user credentials you'll be redirected to editor page, where you can test spam classifier.
   
-  When you type some input in text area, algorithm classifies input as one of the three categories: spam, ham or unsure with appropriate probability. If you want to classify input as spam or ham, just type message in text area, check appropriate option on top of the form and click train me. Next time when you want to classify that same message, algorithm will be closer to the right answer.
+  When you type some input in text area, algorithm classifies input as one of the three categories: spam, ham or unsure with appropriate probability. If you want to classify input as spam or ham, just type message in text area, check appropriate option on top of the form and click train me. Next time when you want to classify that same message, algorithm will be closer to the right answer. 
   
-  Most of the client side scripting was done in [Knockout JS](http://knockoutjs.com/). Knockout is JavaScript library that makes complex things simple with features like declarative bindings, automatic UI refresh, dependancy tracking and templating. In combination with Selmer, client side development was easy and fun.
+  For training datasets I've used large amount of data to effectively train a classifier with the English language. Sample data for spam classification can be found easily on the Web. For this implementation, I've used data from the [Apache SpamAssassin](http://spamassassin.apache.org/publiccorpus/) project. Each word has an associated probability of occurrence in e-mails, which can be calculated from the number of times it's found in spam and ham e-mails and the total number of e-mails processed by the classifier. A new e-mail would be classified by finding all known words in the e-mail's header and body and then somehow combining the probabilities of occurrences of these words in spam and ham e-mails.
+  
+  I've used a Bayesian probability function to model the occurrence of a particular word. In order to classify a new e-mail, I've also combined the probabilities of occurrences of all the known words found in it. For this implementation, I've used Fisher's method, or Fisher's combined probability test, to combine the calculated probabilities. I've also implemented a cross-validation diagnostic, which serves as a kind of unit test for classifier.
+  
+  An e-mail is classified as spam only when most of the words in the e-mail have been previously found in spam e-mails. Similarly, a large number of ham keywords would indicate the e-mail is in fact a ham e-mail. On the other hand, a low number of occurrences of spam keywords in an e-mail would have a probability closer to 0.5, in which case the classifier will be unsure of whether the e-mail is spam or ham.
+  
+  Most of the client side scripting was done in [Knockout JS](http://knockoutjs.com/). Knockout is JavaScript library that makes complex things simple with features like declarative bindings, automatic UI refresh, dependancy tracking and templating. In combination with Selmer, client side development was easy and fun. All client side scripts can be found in /resources/public/js/ folder.
 
 ## Instaling instructions
   Running this application is fairly simple. First you'll need to download it, in either way by cloning this repo to desktop or by downloading zip file. Read this instruction until the end, to find the most convinient way for you to run this application.
@@ -45,7 +51,7 @@ Navigate to the application folder and type in the terminan 'lein run' to start 
 
 [Clojure Programming](http://www.amazon.com/Clojure-Programming-Chas-Emerick/dp/1449394701/ref=pd_sim_b_1?ie=UTF8&refRID=0KCSHHVCSA3Z3YCX6JAF)
 
-  Clojure programming is definetely the most comprehensive book about the topic. As Practical Clojure and Programming Clojure it contains explanations about functional languages in general, as well as explanations of Clojure functions and other features, but it goes much deeper into the core of the languge and explains all pros of working with CLojure. Although it is an excellent reference, I would strongly recommend to first read the two first books (and maybe [The Joy of Clojure](http://www.amazon.com/The-Joy-Clojure-Thinking-Way/dp/1935182641/ref=pd_sim_b_2?ie=UTF8&refRID=0KCSHHVCSA3Z3YCX6JAF)) before you start reading this book.   
+  Clojure programming is definetely the most comprehensive book about the topic. As Practical Clojure and Programming Clojure it contains explanations about functional languages in general, as well as explanations of Clojure functions and other features, but it goes much deeper into the core of the languge and explains all pros of working with CLojure. Although it is an excellent reference, I would strongly recommend to first read the first book (and maybe [The Joy of Clojure](http://www.amazon.com/The-Joy-Clojure-Thinking-Way/dp/1935182641/ref=pd_sim_b_2?ie=UTF8&refRID=0KCSHHVCSA3Z3YCX6JAF)) before you start reading this book.   
 
 [Web Development with Clojure](http://www.amazon.com/Web-Development-Clojure-Build-Bulletproof/dp/1937785645/ref=pd_sim_b_3?ie=UTF8&refRID=0KCSHHVCSA3Z3YCX6JAF)
 
@@ -57,7 +63,7 @@ Navigate to the application folder and type in the terminan 'lein run' to start 
   
 [Clojure for Machine Learning](http://www.amazon.com/Clojure-Machine-Learning-Akhil-Wali/dp/1783284358)
 
-  The same as Web Development in Clojure, this book has also appeared in 2014, and it covers a plenty of techniques and algorithms for machine learning and their implementations in Clojure. Among other things, in this book techniques are described for building neural networks, understanding linear regression, categorizing and clustering data, working with matrices, etc. Of course, in seperate chapter there is explanation of recommendation system, which is divided into two sections, first about content-based filtering and second about collaborative filtering which is used in my application.
+  The same as Web Development in Clojure, this book has also appeared in 2014, and it covers a plenty of techniques and algorithms for machine learning and their implementations in Clojure. Among other things, in this book techniques are described for building neural networks, understanding linear regression, categorizing and clustering data, working with matrices, etc.
   
 ##License
 
